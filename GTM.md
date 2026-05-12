@@ -1,0 +1,12 @@
+# GTM
+
+The exact target user is a founder-operator or engineering manager at a seed to Series A SaaS startup with 5–30 employees, 3–12 technical seats, and enough AI tooling spend to feel vague discomfort but not enough finance maturity to benchmark it properly. This is the kind of team that adopted Cursor, Copilot, Claude, ChatGPT, and one API vendor organically over six months. No one made a deliberate portfolio decision. StackSight gives that person an immediate “are we being sloppy?” answer in under five minutes.
+
+Right before they want this tool, they are usually searching or scrolling around moments of budget friction: “Cursor vs Copilot for team,” “Claude Team pricing,” “ChatGPT Team worth it,” “best AI coding tool for startup,” “how much should we spend on AI tools per engineer,” or “OpenAI bill too high.” On social feeds, the trigger is often a screenshot of an ugly SaaS bill, a founder thread about margin compression, or a team debating whether to standardize on one assistant.
+
+The first 100 users should come from specific, high-intent surfaces instead of broad awareness tactics. Post comparison breakdowns into communities where AI-tooling spend already comes up: `r/saas`, `r/startups`, `r/LocalLLaMA`, Indie Hackers, relevant founder Slack groups, and engineering-manager communities. Ship a launch thread with a concrete thesis like “most 5–20 person teams are overpaying for AI seats because they bought team plans too early.” Then DM founders who publicly mention Cursor, Claude, or Copilot costs and offer a no-login audit link built around their stack. A small founder-facing teardown series on X or LinkedIn would likely outperform generic content because each post can show real before/after savings with a public share link.
+
+The unfair distribution channel for Credex is procurement adjacency. Credex is not just a content brand; it has a credible downstream offer once savings are found. That means StackSight can act as a free top-of-funnel wedge that naturally hands off into discounted credit procurement for teams above a real spend threshold. A generic budgeting app can identify waste, but Credex can actually close the loop with a commercial solution.
+
+Week-1 traction would look like 100 landing visits, 25 completed audits, 8 email captures, and 2–3 high-savings teams above the $500/month threshold. If at least one of those high-savings users books a consultation, the product is already proving distribution leverage, not just engagement.
+

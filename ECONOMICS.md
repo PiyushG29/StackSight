@@ -1,0 +1,10 @@
+# Economics
+
+Assume the average qualified Credex lead in this category is a startup spending roughly $1,500/month on AI software or credits. If Credex converts that team into a discounted credit purchase and captures even a modest annual gross profit contribution of $1,200–$2,400, then one converted lead is meaningfully valuable. For a working midpoint, I would model a converted lead value at $1,800 gross contribution over 12 months.
+
+Now map that to channels from the GTM plan. Organic community posts and founder DMs are mostly time cost, so cash CAC can be close to zero initially, but real CAC still exists in labor. If 10 hours of work produces 25 audits and one booked consultation, and we value that time at $25/hour, then that motion costs about $250 for 25 audits or $10 per audit. If 20% of completed audits become consultations and 25% of consultations buy, then one purchase comes from 20 audits. At $10 per audit, CAC to a converted customer is about $200. Against a modeled $1,800 gross contribution, that is attractive.
+
+For the funnel to stay profitable, “audit completed to consultation booked” likely needs to land above 10% for high-savings users, and “consultation booked to credit purchase” probably needs to be at least 20–25%. Using a simple example: 100 audits x 12% consult rate = 12 consults. If 25% close, that produces 3 customers. If each contributes $1,800, that is $5,400 in gross contribution. Even a few hundred dollars of labor and infra to get those 100 audits still leaves healthy room.
+
+To drive $1M ARR in 18 months, the tool cannot just be a content gimmick. It needs repeated conversion from high-intent, high-spend teams. If one closed customer supports about $6,000 in ARR to Credex, then roughly 167 active customers are needed for $1M ARR. Back into the funnel: with a 3% audit-to-customer conversion, StackSight would need about 5,600 completed audits over 18 months, or around 310 audits per month. That feels aggressive but not absurd if distribution compounds through community sharing, founder referrals, comparison posts, and the public report URLs.
+
