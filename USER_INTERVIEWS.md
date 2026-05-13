@@ -2,7 +2,7 @@
 
 ## Interview 1
 
-- Name / initials: PrintX team lead
+- Name / initials: PrintX team lead (Shivam Kharb)
 - Role: Design and brand operations lead
 - Company stage: Mid-sized startup
 - Quote 1: "We just add tools when a designer says they need a specific look or better prose."
@@ -17,7 +17,7 @@ The strongest signal from this interview was that "duplicate" tools do not alway
 
 ## Interview 2
 
-- Name / initials: QSkip engineering lead
+- Name / initials: QSkip engineering lead (Ujjwal Lehri)
 - Role: Engineering manager / technical operator
 - Company stage: High-growth startup
 - Quote 1: "Having Copilot and Cursor feels redundant, but the devs claim they need both for different workflows."
@@ -32,7 +32,7 @@ This conversation highlighted a very different kind of buyer from PrintX. The en
 
 ## Interview 3
 
-- Name / initials: TheLastMile operations stakeholder
+- Name / initials: TheLastMile operations stakeholder (Ansh Soni)
 - Role: Operations / systems lead
 - Company stage: Late-stage startup
 - Quote 1: "We have shadow AI where employees buy their own subs and expense them because the corporate version is too restrictive."
