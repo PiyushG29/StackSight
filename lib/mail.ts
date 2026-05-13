@@ -8,10 +8,15 @@ export async function sendConfirmationEmail(report: AuditReport, lead: LeadCaptu
     return { delivered: false, reason: "Resend not configured" };
   }
 
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.VERCEL_PROJECT_PRODUCTION_URL?.replace(/^/, "https://") ??
+    "http://localhost:3000";
+
   const html = `
     <h1>Your StackSight audit is ready</h1>
     <p>Estimated savings: <strong>$${report.totalSavingsMonthly.toFixed(2)}/month</strong> and <strong>$${report.totalSavingsAnnual.toFixed(2)}/year</strong>.</p>
-    <p>Public report: ${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/report/${report.id}</p>
+    <p>Public report: ${siteUrl}/report/${report.id}</p>
     <p>${report.callToAction}</p>
   `;
 
@@ -31,4 +36,3 @@ export async function sendConfirmationEmail(report: AuditReport, lead: LeadCaptu
 
   return { delivered: response.ok, reason: response.ok ? undefined : "Resend rejected request" };
 }
-

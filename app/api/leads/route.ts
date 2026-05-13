@@ -31,8 +31,8 @@ export async function POST(request: Request) {
     await sendConfirmationEmail(report, payload);
 
     return NextResponse.json({ message: "Saved. Check your inbox if email delivery is configured." });
-  } catch {
+  } catch (error) {
+    console.error("Lead capture failed", error);
     return NextResponse.json({ message: "Could not save lead." }, { status: 500 });
   }
 }
-

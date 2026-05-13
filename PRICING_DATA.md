@@ -54,4 +54,3 @@ Verified on `2026-05-11`. These URLs are the official vendor pricing pages or of
 - The app evaluates list-price fit, then optionally models an additional 18% credit discount for categories where discounted infrastructure credits are a plausible procurement path.
 - Enterprise and other contact-sales tiers are treated as high-cost and are therefore only recommended when smaller-team governance assumptions clearly do not fit.
 - API-direct products are stored and displayed, but the current engine avoids pretending to know exact workload volume from a single monthly bill number.
-

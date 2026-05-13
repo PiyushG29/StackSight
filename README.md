@@ -29,6 +29,7 @@ Open `http://localhost:3000`.
 
 For AI summaries, set either `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`.
 For transactional email, set `RESEND_API_KEY` and `RESEND_FROM_EMAIL`.
+For deployment-safe persistence, set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`, then run the SQL in `supabase/schema.sql`.
 
 ## Deploy
 
@@ -45,4 +46,3 @@ Deploy to Vercel, Netlify, or Render as a standard Next.js app. Set `NEXT_PUBLIC
 ## Repo status
 
 This repo includes the application, tests, CI workflow, and the evaluator-facing markdown files. The only items that still require real-world follow-through from the submitter are deployment, screenshots, live pricing re-verification at submission time, and genuine user interview notes.
-

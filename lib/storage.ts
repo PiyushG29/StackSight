@@ -1,59 +1,115 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
+import { getSupabaseAdmin } from "@/lib/supabase";
 import type { AuditReport, LeadCapturePayload } from "@/lib/types";
 
-const root = process.cwd();
-const reportsDir = path.join(root, "data", "reports");
-const leadsDir = path.join(root, "data", "leads");
-const rateLimitDir = path.join(root, "data", "rate-limit");
-
-async function ensure(dir: string) {
-  await mkdir(dir, { recursive: true });
-}
+type RateLimitRow = {
+  key: string;
+  hits: number;
+  window_started_at: string;
+};
 
 export async function saveReport(report: AuditReport) {
-  await ensure(reportsDir);
-  const reportPath = path.join(reportsDir, `${report.id}.json`);
-  await writeFile(reportPath, JSON.stringify(report, null, 2), "utf8");
+  const supabase = getSupabaseAdmin();
+  const { error } = await supabase.from("audit_reports").upsert({
+    id: report.id,
+    created_at: report.createdAt,
+    team_size: report.input.teamSize,
+    primary_use_case: report.input.primaryUseCase,
+    company_name: report.input.companyName ?? null,
+    total_current_monthly: report.totalCurrentMonthly,
+    total_recommended_monthly: report.totalRecommendedMonthly,
+    total_savings_monthly: report.totalSavingsMonthly,
+    total_savings_annual: report.totalSavingsAnnual,
+    summary: report.summary,
+    call_to_action: report.callToAction,
+    input_json: report.input,
+    results_json: report.results
+  });
+
+  if (error) {
+    throw error;
+  }
 }
 
 export async function getReport(id: string): Promise<AuditReport | null> {
-  try {
-    const reportPath = path.join(reportsDir, `${id}.json`);
-    const contents = await readFile(reportPath, "utf8");
-    return JSON.parse(contents) as AuditReport;
-  } catch {
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase
+    .from("audit_reports")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error || !data) {
     return null;
   }
+
+  return {
+    id: data.id,
+    createdAt: data.created_at,
+    input: data.input_json as AuditReport["input"],
+    results: data.results_json as AuditReport["results"],
+    totalCurrentMonthly: data.total_current_monthly,
+    totalRecommendedMonthly: data.total_recommended_monthly,
+    totalSavingsMonthly: data.total_savings_monthly,
+    totalSavingsAnnual: data.total_savings_annual,
+    summary: data.summary,
+    callToAction: data.call_to_action
+  };
 }
 
 export async function saveLead(payload: LeadCapturePayload) {
-  await ensure(leadsDir);
-  const leadPath = path.join(leadsDir, `${payload.reportId}-${Date.now()}.json`);
-  await writeFile(leadPath, JSON.stringify({ ...payload, capturedAt: new Date().toISOString() }, null, 2), "utf8");
+  const supabase = getSupabaseAdmin();
+  const { error } = await supabase.from("audit_leads").insert({
+    report_id: payload.reportId,
+    email: payload.email,
+    company_name: payload.companyName ?? null,
+    role: payload.role ?? null,
+    team_size: payload.teamSize ?? null
+  });
+
+  if (error) {
+    throw error;
+  }
 }
 
 export async function consumeRateLimit(key: string, maxHits = 5, windowMs = 5 * 60 * 1000) {
-  await ensure(rateLimitDir);
+  const supabase = getSupabaseAdmin();
+  const now = Date.now();
   const safeKey = key.replace(/[^a-z0-9-]/gi, "_");
-  const limitPath = path.join(rateLimitDir, `${safeKey}.json`);
-  let history: number[] = [];
 
-  try {
-    const contents = await readFile(limitPath, "utf8");
-    history = JSON.parse(contents) as number[];
-  } catch {
-    history = [];
+  const { data, error } = await supabase
+    .from("rate_limits")
+    .select("key,hits,window_started_at")
+    .eq("key", safeKey)
+    .maybeSingle<RateLimitRow>();
+
+  if (error) {
+    throw error;
   }
 
-  const now = Date.now();
-  const recent = history.filter((stamp) => now - stamp < windowMs);
-  recent.push(now);
+  let hits = 1;
+  let windowStartedAt = new Date(now).toISOString();
 
-  await writeFile(limitPath, JSON.stringify(recent), "utf8");
+  if (data) {
+    const started = new Date(data.window_started_at).getTime();
+    if (now - started < windowMs) {
+      hits = data.hits + 1;
+      windowStartedAt = data.window_started_at;
+    }
+  }
+
+  const { error: upsertError } = await supabase.from("rate_limits").upsert({
+    key: safeKey,
+    hits,
+    window_started_at: windowStartedAt
+  });
+
+  if (upsertError) {
+    throw upsertError;
+  }
+
   return {
-    allowed: recent.length <= maxHits,
-    remaining: Math.max(0, maxHits - recent.length)
+    allowed: hits <= maxHits,
+    remaining: Math.max(0, maxHits - hits)
   };
 }
 

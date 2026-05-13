@@ -16,8 +16,8 @@ export async function POST(request: Request) {
     await saveReport(report);
 
     return NextResponse.json({ report });
-  } catch {
+  } catch (error) {
+    console.error("Audit build failed", error);
     return NextResponse.json({ error: "Unable to build audit." }, { status: 500 });
   }
 }
-
